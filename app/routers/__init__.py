@@ -1,1 +1,1 @@
-from .summary import router as summary_router
+from .summarize import router as summary_router

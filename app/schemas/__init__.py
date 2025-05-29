@@ -1,1 +1,1 @@
-from .summary import SummaryResponse, SummaryRequest
+from .summarize import SummaryResponse, SummaryRequest

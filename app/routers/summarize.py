@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from schemas.summary import SummaryRequest, SummaryResponse
+from schemas.summarize import SummaryRequest, SummaryResponse
 from services import SummaryService
 
 router = APIRouter()
