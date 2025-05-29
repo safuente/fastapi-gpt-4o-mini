@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import summary_router
+from routers import summary_router, complete_router
 from config import get_settings
 
 settings = get_settings()
@@ -22,3 +22,4 @@ app.add_middleware(
 
 
 app.include_router(summary_router, prefix="/api")
+app.include_router(complete_router, prefix="/api")

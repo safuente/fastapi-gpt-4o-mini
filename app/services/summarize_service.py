@@ -12,7 +12,9 @@ class SummaryService(BaseLlmService):
     async def summarize_text(
         self, text: str, max_length: int = 150, style: str = "concise"
     ) -> SummaryResponse:
-        logger.info(f"Starting summarization with style='{style}' and max_length={max_length}")
+        logger.info(
+            f"Starting summarization with style='{style}' and max_length={max_length}"
+        )
 
         style_prompts = {
             "concise": "Provide a concise summary:",
@@ -32,9 +34,7 @@ class SummaryService(BaseLlmService):
 
         try:
             summary: str = await self.chat_complete(
-                prompt=prompt,
-                max_tokens=min(max_length * 2, 500),
-                temperature=0.3
+                prompt=prompt, max_tokens=min(max_length * 2, 500), temperature=0.3
             )
         except Exception as e:
             logger.exception("Error during chat completion")
@@ -43,9 +43,11 @@ class SummaryService(BaseLlmService):
         result = SummaryResponse(
             summary=summary.strip(),
             original_length=len(text.split()),
-            summary_length=len(summary.split())
+            summary_length=len(summary.split()),
         )
 
-        logger.info(f"Generated summary ({result.summary_length} words from {result.original_length})")
+        logger.info(
+            f"Generated summary ({result.summary_length} words from {result.original_length})"
+        )
 
         return result

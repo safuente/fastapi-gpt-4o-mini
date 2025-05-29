@@ -1,4 +1,5 @@
 import re
+import uuid
 from enum import Enum
 
 from pydantic import BaseModel, Field, field_validator
@@ -40,6 +41,9 @@ class SummaryRequest(BaseModel):
 class SummaryResponse(BaseModel):
     """Response model for text summarization"""
 
+    id: str = Field(
+        default_factory=lambda: str(uuid.uuid4()), description="Unique completion ID"
+    )
     summary: str = Field(..., description="Generated summary")
     original_length: int = Field(..., description="Original text length in characters")
     summary_length: int = Field(..., description="Summary length in characters")

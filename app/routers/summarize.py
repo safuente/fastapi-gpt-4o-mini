@@ -2,11 +2,11 @@ from fastapi import APIRouter, HTTPException
 from schemas.summarize import SummaryRequest, SummaryResponse
 from services import SummaryService
 
-router = APIRouter()
+router = APIRouter(prefix="/summarize", tags=["Summarize"])
 summary_service = SummaryService()
 
 
-@router.post("/summary", response_model=SummaryResponse)
+@router.post("/", response_model=SummaryResponse)
 async def summarize_text(request: SummaryRequest):
     try:
         return await summary_service.summarize_text(

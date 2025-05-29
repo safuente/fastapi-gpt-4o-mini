@@ -20,15 +20,19 @@ class BaseLlmService:
 
     async def chat_complete(
         self,
-        prompt: str,
+        prompt: Optional[str] = None,
+        messages: Optional[list[dict]] = None,
         max_tokens: int = 300,
         temperature: float = 0.1,
         top_p: Optional[float] = 1.0,
         stream: bool = False,
     ) -> Union[str, AsyncGenerator[ChatCompletionChunk, None]]:
+        if messages is None:
+            messages = [{"role": "user", "content": prompt}]
+
         response = await self.client.chat.completions.create(
             model=self.model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=messages,
             max_tokens=max_tokens,
             temperature=temperature,
             top_p=top_p,

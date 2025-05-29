@@ -4,18 +4,9 @@ import logging
 def configure_logging():
     log_format = "%(asctime)s - %(levelname)s - %(message)s"
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format=log_format,
-        force=True
-    )
+    logging.basicConfig(level=logging.INFO, format=log_format, force=True)
 
-    loggers_to_configure = [
-        "uvicorn",
-        "uvicorn.access",
-        "uvicorn.error",
-        "fastapi"
-    ]
+    loggers_to_configure = ["uvicorn", "uvicorn.access", "uvicorn.error", "fastapi"]
 
     for logger_name in loggers_to_configure:
         logger = logging.getLogger(logger_name)
