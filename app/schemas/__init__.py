@@ -1,2 +1,3 @@
-from .summarize import SummaryResponse, SummaryRequest
+from .summarize import SummaryRequest, SummaryResponse
 from .complete import CompletionRequest, CompletionResponse
+from .translate import TranslationRequest, TranslationResponse
