@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+openai
+pydantic
+pydantic-settings
+redis>=4.2
+locust
+slowapi>=0.1.4
+black
