@@ -40,11 +40,6 @@ class SummaryRequest(BaseModel):
 class SummaryResponse(BaseModel):
     """Response model for text summarization"""
 
-    # id: str = Field(..., description="Unique summary ID")
     summary: str = Field(..., description="Generated summary")
     original_length: int = Field(..., description="Original text length in characters")
     summary_length: int = Field(..., description="Summary length in characters")
-    """
-    processing_time: float = Field(..., description="Processing time in seconds")
-    created: int = Field(..., description="Unix timestamp")
-    """
