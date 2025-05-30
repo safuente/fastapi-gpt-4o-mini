@@ -11,14 +11,13 @@ complete_service = CompletionService()
 async def complete_text(
     request: CompletionRequest,
     stream: bool = Query(False, description="Return response as a stream"),
-
 ):
     result = await complete_service.chat_completion(
         prompt=request.prompt,
         max_tokens=request.max_tokens,
         temperature=request.temperature,
         top_p=request.top_p,
-        stream=stream
+        stream=stream,
     )
 
     return result

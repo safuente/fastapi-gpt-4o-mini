@@ -13,6 +13,5 @@ async def translate(
     request: TranslationRequest,
 ):
     return await translation_service.translate_text(
-        text=request.text,
-        target_language=request.target_language
+        text=request.text, target_language=request.target_language
     )
