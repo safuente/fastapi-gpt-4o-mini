@@ -157,7 +157,7 @@ for this project.
 [Go to the article
 ](https://medium.com/@santiagoalvarez87/building-a-real-time-traffic-api-with-fastapi-redis-pub-sub-and-load-testing-using-locust-3e42c6404ed5)
 * Implement **Redis cache** for repeated queries to save costs
-* Integrate **PostgreSQL** or another database for user/session persistence
+* Integrate **PostgreSQL** or another database for user/session persistence and credits control
 * Use **Kubernetes** for advanced deployments
 * Add **OpenTelemetry** or **Prometheus** for observability
 
