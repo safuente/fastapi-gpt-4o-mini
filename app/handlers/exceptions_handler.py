@@ -38,14 +38,23 @@ def add_exception_handlers(app: FastAPI):
     async def validation_exception_handler(
         request: Request, exc: RequestValidationError
     ):
-        logger.warning("Validation error")
+        logger.warning("Validation error: %s", exc.errors())
+
+        error_details = [
+            f"{'.'.join(str(loc) for loc in err['loc'])}: {err['msg']}"
+            for err in exc.errors()
+        ]
+        detail_msg = "; ".join(error_details)
+
         return JSONResponse(
             status_code=422,
             content=jsonable_encoder(
-                ErrorResponse(detail="Invalid request", error_code="validation_error")
+                ErrorResponse(
+                    detail=f"Invalid request: {detail_msg}",
+                    error_code="validation_error"
+                )
             ),
         )
-
     @app.exception_handler(Exception)
     async def generic_exception_handler(request: Request, exc: Exception):
         logger.exception("Unhandled exception occurred")

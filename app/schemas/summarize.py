@@ -34,8 +34,7 @@ class SummaryRequest(BaseModel):
     def validate_text(cls, v: str) -> str:
         if not v.strip():
             raise ValueError("Text cannot be empty or whitespace only")
-        cleaned_text = re.sub(r"\s+", " ", v).strip()
-        return cleaned_text
+        return v.strip()
 
 
 class SummaryResponse(BaseModel):

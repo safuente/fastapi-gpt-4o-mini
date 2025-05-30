@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import Literal
 
 
@@ -7,6 +7,13 @@ class TranslationRequest(BaseModel):
     target_language: Literal["en", "es", "fr", "de", "it"] = Field(
         ..., description="Target language code"
     )
+
+    @field_validator("text")
+    @classmethod
+    def validate_text(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("Text cannot be empty or whitespace only")
+        return v.strip()
 
 
 class TranslationResponse(BaseModel):

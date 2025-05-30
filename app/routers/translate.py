@@ -1,5 +1,3 @@
-# routers/translate.py
-
 from fastapi import APIRouter, Depends
 from schemas import TranslationRequest, TranslationResponse
 from services import TranslationService

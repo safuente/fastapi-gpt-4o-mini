@@ -1,5 +1,21 @@
 import pytest
+
+from config import get_settings
+from services.auth_service import AuthService
 from services import CompletionService, AnalysisService, SummaryService, TranslationService
+
+
+@pytest.fixture
+def test_token():
+    settings = get_settings()
+    auth_service = AuthService()
+    token = auth_service.create_access_token({"sub": settings.fake_username})
+    return token
+
+
+@pytest.fixture
+def auth_headers(test_token):
+    return {"Authorization": f"Bearer {test_token}"}
 
 
 @pytest.fixture

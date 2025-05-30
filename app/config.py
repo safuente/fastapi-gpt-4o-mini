@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     port: int = 8000
 
     # Security
-    fake_username: str = Field("admin", description="Fake user login")
+    fake_username: str = Field("test_user", description="Fake user login")
     fake_password: str = Field("1234", description="Fake user password")
     jwt_secret: str = Field("your-secret-key")
     require_auth: bool = True
