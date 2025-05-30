@@ -1,7 +1,6 @@
 from typing import Optional, Union
 import asyncio
 import logging
-import openai
 from openai import AsyncOpenAI, OpenAIError
 from config import get_settings
 from collections.abc import AsyncGenerator
