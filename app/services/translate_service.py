@@ -1,5 +1,3 @@
-# services/translation_service.py
-
 from services.base_llm_service import BaseLlmService
 from schemas.translate import TranslationResponse
 import logging
