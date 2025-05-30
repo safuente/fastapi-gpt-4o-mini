@@ -14,7 +14,7 @@ hashed_password = auth_service.get_password_hash(settings.fake_password)
 
 
 @router.post("/login", response_model=LoginResponse)
-@limiter.limit("5/minute")
+@limiter.limit("1000/minute")
 def login(request: Request, payload: LoginRequest = Body(...)):
     if payload.username != settings.fake_username or not auth_service.verify_password(
         payload.password, hashed_password
