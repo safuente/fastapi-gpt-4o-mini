@@ -1,9 +1,10 @@
 from services.base_llm_service import BaseLlmService
 from schemas.analyze import AnalysisType
-from fastapi import HTTPException
 import logging
 
 from exceptions import AppException
+
+from schemas import AnalysisResponse
 
 logger = logging.getLogger(__name__)
 
@@ -47,4 +48,4 @@ class AnalysisService(BaseLlmService):
             messages=messages, max_tokens=400, temperature=0.3, top_p=1.0, stream=False
         )
 
-        return result.strip()
+        return AnalysisResponse(type=analysis_type, result=result)

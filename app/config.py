@@ -19,13 +19,13 @@ class Settings(BaseSettings):
     port: int = 8000
 
     # Security
-    api_key: str = Field(default="your-default-api-key", env="API_KEY")
+    api_key: str = Field(default="default-api-key")
     require_auth: bool = True
     allowed_hosts: List[str] = ["*"]
     allowed_origins: List[str] = ["*"]
 
     # OpenAI
-    openai_api_key: str = Field(..., env="OPENAI_API_KEY")
+    openai_api_key: str = Field(default="default-openai-api-key")
     openai_model: str = "gpt-4o-mini"
     openai_max_retries: int = 3
     openai_retry_delay: float = 1.0
@@ -34,6 +34,8 @@ class Settings(BaseSettings):
     rate_limit_per_minute: int = 30
 
     model_config = SettingsConfigDict(env_file=".env")
+
+
 
 
 @lru_cache()

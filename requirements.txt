@@ -2,6 +2,8 @@ fastapi
 uvicorn
 openai
 pydantic
+pytest
+pytest-asyncio
 pydantic-settings
 redis>=4.2
 locust
