@@ -1,6 +1,5 @@
 import pytest
 from schemas import TranslationResponse
-from schemas.analyze import AnalysisType
 
 
 @pytest.mark.asyncio
