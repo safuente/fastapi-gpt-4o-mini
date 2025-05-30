@@ -55,6 +55,21 @@ common_422 = {
     }
 }
 
+common_429 = {
+    "429": {
+        "description": "Rate limit exceeded",
+        "content": {
+            "application/json": {
+                "example": {
+                    "detail": "Rate limit exceeded. Try again later",
+                    "error_code": "rate_limit_error"
+                }
+            }
+        },
+    }
+}
+
+
 summarize_200 = {
     200: {
         "description": "Successful summary",

@@ -1,5 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi.middleware import SlowAPIMiddleware
+from slowapi.errors import RateLimitExceeded
+
 
 from handlers import add_exception_handlers
 from routers import (
@@ -10,8 +13,11 @@ from routers import (
     auth_router,
 )
 from config import get_settings
+from routers.rate_limiter import limiter
+
 
 settings = get_settings()
+
 
 app = FastAPI(
     title=settings.app_title,
@@ -19,6 +25,8 @@ app = FastAPI(
     version=settings.app_version,
 )
 
+app.state.limiter = limiter
+app.add_middleware(SlowAPIMiddleware)
 add_exception_handlers(app)
 
 app.add_middleware(
