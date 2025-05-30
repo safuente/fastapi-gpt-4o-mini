@@ -26,6 +26,9 @@ class Settings(BaseSettings):
 
     # OpenAI
     openai_api_key: str = Field(..., env="OPENAI_API_KEY")
+    openai_model: str = "gpt-4o-mini"
+    openai_max_retries: int = 3
+    openai_retry_delay: float = 1.0
 
     # Rate limiting
     rate_limit_per_minute: int = 30

@@ -2,7 +2,7 @@ from typing import Optional, Union
 import asyncio
 import logging
 import openai
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, OpenAIError
 from config import get_settings
 from collections.abc import AsyncGenerator
 from openai.types.chat import ChatCompletionChunk
@@ -14,9 +14,20 @@ class BaseLlmService:
     def __init__(self):
         self.settings = get_settings()
         self.client = AsyncOpenAI(api_key=self.settings.openai_api_key)
-        self.model = "gpt-4o-mini"
-        self.max_retries = 3
-        self.retry_delay = 1.0
+        self.model = self.settings.openai_model
+        self.max_retries = self.settings.openai_max_retries
+        self.retry_delay = self.settings.openai_retry_delay
+
+    async def _retry_with_backoff(self, func, *args, **kwargs):
+        for attempt in range(self.max_retries):
+            try:
+                return await func(*args, **kwargs)
+            except (OpenAIError, TimeoutError, ConnectionError) as e:
+                logger.warning(f"Attempt {attempt + 1} failed: {e}")
+                if attempt < self.max_retries - 1:
+                    await asyncio.sleep(self.retry_delay * (2**attempt))
+                else:
+                    raise
 
     async def chat_complete(
         self,
@@ -27,15 +38,19 @@ class BaseLlmService:
         top_p: Optional[float] = 1.0,
         stream: bool = False,
     ) -> Union[str, AsyncGenerator[ChatCompletionChunk, None]]:
+
         if messages is None:
             messages = [{"role": "user", "content": prompt}]
 
-        response = await self.client.chat.completions.create(
-            model=self.model,
-            messages=messages,
-            max_tokens=max_tokens,
-            temperature=temperature,
-            top_p=top_p,
-            stream=stream,
-        )
+        async def call_openai():
+            return await self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                top_p=top_p,
+                stream=stream,
+            )
+
+        response = await self._retry_with_backoff(call_openai)
         return response if stream else response.choices[0].message.content
