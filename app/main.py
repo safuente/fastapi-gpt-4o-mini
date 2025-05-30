@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi.middleware import SlowAPIMiddleware
+from fastapi.responses import RedirectResponse
 
 
 from handlers import add_exception_handlers
@@ -42,3 +43,8 @@ app.include_router(complete_router, prefix=f"{BASE_API_URL}")
 app.include_router(translation_router, prefix=f"{BASE_API_URL}")
 app.include_router(analysis_router, prefix=f"{BASE_API_URL}")
 app.include_router(auth_router, prefix=f"{BASE_API_URL}")
+
+
+@app.get("/", include_in_schema=False)
+async def root():
+    return RedirectResponse(url="/docs")
