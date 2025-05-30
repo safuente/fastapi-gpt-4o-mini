@@ -1,9 +1,15 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Depends
 from fastapi.responses import StreamingResponse, JSONResponse
 from services import CompletionService
 from schemas import CompletionRequest, CompletionResponse
 
-router = APIRouter(prefix="/complete", tags=["Complete"])
+from dependencies import get_current_user
+
+router = APIRouter(
+    prefix="/complete",
+    tags=["Complete"],
+    dependencies=[Depends(get_current_user)]
+)
 complete_service = CompletionService()
 
 

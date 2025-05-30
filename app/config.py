@@ -6,7 +6,7 @@ from typing import List
 
 class Settings(BaseSettings):
     # General
-    app_title: str = "Language Model API"
+    app_title: str = "GPT-4o-mini Model API"
     app_description: str = (
         "A REST API service for GPT-4o-mini language model operations"
     )
@@ -19,7 +19,9 @@ class Settings(BaseSettings):
     port: int = 8000
 
     # Security
-    api_key: str = Field(default="default-api-key")
+    fake_username: str = Field("admin", description="Fake user login")
+    fake_password: str = Field("1234", description="Fake user password")
+    jwt_secret: str = Field("your-secret-key")
     require_auth: bool = True
     allowed_hosts: List[str] = ["*"]
     allowed_origins: List[str] = ["*"]

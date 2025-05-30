@@ -21,5 +21,4 @@ class AnalysisRequest(BaseModel):
 
 
 class AnalysisResponse(BaseModel):
-    type: AnalysisType = Field(..., description="Type of analysis performed")
     result: str = Field(..., description="Textual result of the analysis")

@@ -32,13 +32,9 @@ class SummaryService(BaseLlmService):
 
         logger.debug(f"Generated prompt for model:\n{prompt}")
 
-        try:
-            summary: str = await self.chat_complete(
-                prompt=prompt, max_tokens=min(max_length * 2, 500), temperature=0.3
-            )
-        except Exception as e:
-            logger.exception("Error during chat completion")
-            raise
+        summary: str = await self.chat_complete(
+            prompt=prompt, max_tokens=min(max_length * 2, 500), temperature=0.3
+        )
 
         result = SummaryResponse(
             summary=summary.strip(),

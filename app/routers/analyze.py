@@ -2,11 +2,12 @@ from fastapi import APIRouter, Depends
 from schemas.analyze import AnalysisRequest, AnalysisResponse
 from services import AnalysisService
 
-router = APIRouter(prefix="/analyze", tags=["Analysis"])
+from dependencies import get_current_user
+
+router = APIRouter(prefix="/analyze", tags=["Analysis"], dependencies=[Depends(get_current_user)])
 analysis_service = AnalysisService()
 
 
 @router.post("", response_model=AnalysisResponse)
 async def analyze_text(request: AnalysisRequest):
-    result = await analysis_service.analyze_text(request.text, request.type)
-    return AnalysisResponse(type=request.type, result=result)
+    return await analysis_service.analyze_text(request.text, request.type)

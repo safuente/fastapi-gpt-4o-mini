@@ -4,7 +4,9 @@ from fastapi import APIRouter, Depends
 from schemas import TranslationRequest, TranslationResponse
 from services import TranslationService
 
-router = APIRouter(prefix="/translate", tags=["Translate"])
+from dependencies import get_current_user
+
+router = APIRouter(prefix="/translate", tags=["Translate"], dependencies=[Depends(get_current_user)])
 translation_service = TranslationService()
 
 
