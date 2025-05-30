@@ -3,6 +3,8 @@ from typing import Optional
 from typing import Annotated
 from pydantic import BaseModel, Field, field_validator
 
+from doc_examples import complete_request
+
 
 class CompletionRequest(BaseModel):
     """Request model for text completion"""
@@ -45,12 +47,20 @@ class CompletionRequest(BaseModel):
         ),
     ]
 
+    model_config = {
+        "json_schema_extra": {
+            "examples": complete_request
+        }
+    }
+
     @field_validator("prompt")
     @classmethod
     def validate_prompt(cls, v: str) -> str:
         if not v.strip():
             raise ValueError("Prompt cannot be empty or whitespace only")
         return v.strip()
+
+
 
 
 class CompletionResponse(BaseModel):

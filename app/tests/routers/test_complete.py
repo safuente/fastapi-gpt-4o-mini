@@ -12,9 +12,9 @@ async def test_complete_text(auth_headers):
                 "prompt": "Once upon a time in a galaxy far, far away",
                 "max_tokens": 50,
                 "temperature": 0.5,
-                "top_p": 1.0
+                "top_p": 1.0,
             },
-            headers=auth_headers
+            headers=auth_headers,
         )
 
     assert response.status_code == 200
@@ -28,15 +28,11 @@ async def test_complete_text(auth_headers):
 async def test_complete_text_without_token():
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.post(
-            "/api/complete",
-            json={
-                "prompt": "Tell me a joke",
-                "max_tokens": 30
-            }
+            "/api/complete", json={"prompt": "Tell me a joke", "max_tokens": 30}
         )
 
-    assert response.status_code == 403
-    assert response.json()["detail"] in ["Not authenticated"]
+    assert response.status_code == 401
+    assert response.json()["detail"] in ["Invalid token"]
 
 
 @pytest.mark.asyncio
@@ -44,11 +40,8 @@ async def test_complete_text_empty_prompt(auth_headers):
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.post(
             "/api/complete",
-            json={
-                "prompt": "   ",
-                "max_tokens": 50
-            },
-            headers=auth_headers
+            json={"prompt": "   ", "max_tokens": 50},
+            headers=auth_headers,
         )
 
     assert response.status_code == 422
@@ -66,9 +59,9 @@ async def test_complete_text_streaming(auth_headers):
                 "prompt": "Continue the following poem: Roses are red",
                 "max_tokens": 20,
                 "temperature": 0.5,
-                "top_p": 1.0
+                "top_p": 1.0,
             },
-            headers=auth_headers
+            headers=auth_headers,
         )
 
     assert response.status_code == 200

@@ -49,10 +49,11 @@ def add_exception_handlers(app: FastAPI):
             content=jsonable_encoder(
                 ErrorResponse(
                     detail=f"Invalid request: {detail_msg}",
-                    error_code="validation_error"
+                    error_code="validation_error",
                 )
             ),
         )
+
     @app.exception_handler(Exception)
     async def generic_exception_handler(request: Request, exc: Exception):
         logger.exception("Unhandled exception occurred")

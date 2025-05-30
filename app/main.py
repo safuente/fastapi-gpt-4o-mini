@@ -2,8 +2,13 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from handlers import add_exception_handlers
-from routers import (summary_router, complete_router,
-                     translation_router, analysis_router, auth_router)
+from routers import (
+    summary_router,
+    complete_router,
+    translation_router,
+    analysis_router,
+    auth_router,
+)
 from config import get_settings
 
 settings = get_settings()

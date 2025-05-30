@@ -11,7 +11,9 @@ logger = logging.getLogger(__name__)
 
 class AnalysisService(BaseLlmService):
 
-    async def analyze_text(self, text: str, analysis_type: AnalysisType) -> AnalysisResponse:
+    async def analyze_text(
+        self, text: str, analysis_type: AnalysisType
+    ) -> AnalysisResponse:
         analysis_prompts = {
             AnalysisType.SENTIMENT: "Analyze the sentiment of this text (positive, negative, neutral) and provide a confidence score:",
             AnalysisType.KEY_TOPICS: "Extract the key topics and themes from this text:",
@@ -50,4 +52,3 @@ class AnalysisService(BaseLlmService):
         logger.info(result)
 
         return AnalysisResponse(result=result.strip())
-

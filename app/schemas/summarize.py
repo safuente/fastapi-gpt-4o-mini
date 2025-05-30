@@ -6,6 +6,8 @@ from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 from typing_extensions import Annotated
 
+from doc_examples import summary_request
+
 
 class SummaryStyle(str, Enum):
     CONCISE = "concise"
@@ -28,6 +30,13 @@ class SummaryRequest(BaseModel):
     style: Optional[SummaryStyle] = Field(
         default=SummaryStyle.CONCISE, description="Summary style"
     )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": summary_request
+        }
+    }
+
 
     @field_validator("text")
     @classmethod

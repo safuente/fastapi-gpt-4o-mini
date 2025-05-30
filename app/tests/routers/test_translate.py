@@ -8,11 +8,8 @@ async def test_translate_success(auth_headers):
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.post(
             "/api/translate",
-            json={
-                "text": "Hello, how are you?",
-                "target_language": "es"
-            },
-            headers=auth_headers
+            json={"text": "Hello, how are you?", "target_language": "es"},
+            headers=auth_headers,
         )
 
     assert response.status_code == 200
@@ -26,11 +23,7 @@ async def test_translate_success(auth_headers):
 async def test_translate_without_token():
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.post(
-            "/api/translate",
-            json={
-                "text": "Good morning",
-                "target_language": "fr"
-            }
+            "/api/translate", json={"text": "Good morning", "target_language": "fr"}
         )
 
     assert response.status_code in (401, 403)
@@ -42,11 +35,8 @@ async def test_translate_invalid_language_code(auth_headers):
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.post(
             "/api/translate",
-            json={
-                "text": "Hi!",
-                "target_language": "invalid_lang"
-            },
-            headers=auth_headers
+            json={"text": "Hi!", "target_language": "invalid_lang"},
+            headers=auth_headers,
         )
 
     assert response.status_code == 422
@@ -57,11 +47,8 @@ async def test_translate_empty_text(auth_headers):
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.post(
             "/api/translate",
-            json={
-                "text": "   ",
-                "target_language": "es"
-            },
-            headers=auth_headers
+            json={"text": "   ", "target_language": "es"},
+            headers=auth_headers,
         )
 
     assert response.status_code == 422

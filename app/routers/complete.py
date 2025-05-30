@@ -5,15 +5,16 @@ from schemas import CompletionRequest, CompletionResponse
 
 from dependencies import get_current_user
 
+from doc_examples import complete_200, common_401 , common_422
+
 router = APIRouter(
-    prefix="/complete",
-    tags=["Complete"],
-    dependencies=[Depends(get_current_user)]
+    prefix="/complete", tags=["Complete"], dependencies=[Depends(get_current_user)]
 )
 complete_service = CompletionService()
 
 
-@router.post("", response_model=CompletionResponse, response_model_exclude_unset=True)
+@router.post("", response_model=CompletionResponse, response_model_exclude_unset=True,
+             responses=complete_200 | common_401 | common_422)
 async def complete_text(
     request: CompletionRequest,
     stream: bool = Query(

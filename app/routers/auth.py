@@ -15,7 +15,9 @@ hashed_password = auth_service.get_password_hash(settings.fake_password)
 
 @router.post("/login", response_model=LoginResponse)
 def login(request: LoginRequest):
-    if request.username != settings.fake_username or not auth_service.verify_password(request.password, hashed_password):
+    if request.username != settings.fake_username or not auth_service.verify_password(
+        request.password, hashed_password
+    ):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = auth_service.create_access_token(data={"sub": request.username})

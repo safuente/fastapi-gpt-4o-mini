@@ -2,7 +2,12 @@ import pytest
 
 from config import get_settings
 from services.auth_service import AuthService
-from services import CompletionService, AnalysisService, SummaryService, TranslationService
+from services import (
+    CompletionService,
+    AnalysisService,
+    SummaryService,
+    TranslationService,
+)
 
 
 @pytest.fixture
@@ -43,5 +48,7 @@ def mock_chat(monkeypatch):
     def _patch(service, return_value="Mocked response"):
         async def mock_method(*args, **kwargs):
             return return_value
+
         monkeypatch.setattr(service, "chat_complete", mock_method)
+
     return _patch
