@@ -3,7 +3,7 @@ from schemas import TranslationRequest, TranslationResponse
 from services import TranslationService
 
 from dependencies import get_current_user
-from doc_examples import translate_200, common_401 , common_422, common_429
+from doc_examples import translate_200, common_401, common_422, common_429
 
 from routers.rate_limiter import limiter
 

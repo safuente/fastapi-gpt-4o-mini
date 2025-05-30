@@ -14,7 +14,8 @@ summary_service = SummaryService()
 
 @router.post(
     "",
-    response_model=SummaryResponse,summary="Summarize text",
+    response_model=SummaryResponse,
+    summary="Summarize text",
     description="""
 Summarize a block of text using an LLM with support for different summarization styles.
 

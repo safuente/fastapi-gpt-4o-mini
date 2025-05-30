@@ -1,6 +1,6 @@
 analysis_request = {
     "text": "This product is fantastic! I'm very happy with the results.",
-    "type": "sentiment"
+    "type": "sentiment",
 }
 
 complete_request = [
@@ -8,26 +8,25 @@ complete_request = [
         "prompt": "Once upon a time, in a land far away,",
         "max_tokens": 50,
         "temperature": 0.7,
-        "top_p": 1.0
+        "top_p": 1.0,
     }
 ]
 
-summary_request = [{
-    "text":
-        "Artificial Intelligence is transforming industries by enabling automation "
+summary_request = [
+    {
+        "text": "Artificial Intelligence is transforming industries by enabling automation "
         "and enhancing decision-making with predictive capabilities.",
-    "max_length": 50,
-    "style": "concise"
-}]
+        "max_length": 50,
+        "style": "concise",
+    }
+]
 
-translate_request = [{
-  "text": "Artificial Intelligence is revolutionizing the tech industry.",
-  "target_language": "es"
-}]
-
-
-
-
+translate_request = [
+    {
+        "text": "Artificial Intelligence is revolutionizing the tech industry.",
+        "target_language": "es",
+    }
+]
 
 
 common_401 = {
@@ -62,7 +61,7 @@ common_429 = {
             "application/json": {
                 "example": {
                     "detail": "Rate limit exceeded. Try again later",
-                    "error_code": "rate_limit_error"
+                    "error_code": "rate_limit_error",
                 }
             }
         },
@@ -116,9 +115,7 @@ analyze_200 = {
         "description": "Successful analysis",
         "content": {
             "application/json": {
-                "example": {
-                    "result": "Sentiment: Positive\nConfidence Score: 95%"
-                }
+                "example": {"result": "Sentiment: Positive\nConfidence Score: 95%"}
             }
         },
     }
@@ -131,7 +128,7 @@ login_200 = {
             "application/json": {
                 "example": {
                     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                    "token_type": "bearer"
+                    "token_type": "bearer",
                 }
             }
         },
@@ -148,5 +145,3 @@ login_401 = {
         },
     }
 }
-
-

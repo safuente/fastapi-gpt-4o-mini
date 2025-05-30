@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi.middleware import SlowAPIMiddleware
-from slowapi.errors import RateLimitExceeded
 
 
 from handlers import add_exception_handlers

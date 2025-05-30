@@ -73,7 +73,8 @@ def add_exception_handlers(app: FastAPI):
             status_code=429,
             content=jsonable_encoder(
                 ErrorResponse(
-                    detail="Rate limit exceeded. Try again later", error_code="rate_limit_error"
+                    detail="Rate limit exceeded. Try again later",
+                    error_code="rate_limit_error",
                 )
             ),
         )

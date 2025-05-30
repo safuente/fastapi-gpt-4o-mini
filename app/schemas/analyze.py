@@ -20,11 +20,7 @@ class AnalysisRequest(BaseModel):
     text: str = Field(..., min_length=1, max_length=4000, description="Text to analyze")
     type: AnalysisType = Field(..., description="Type of analysis to perform")
 
-    model_config = {
-        "json_schema_extra": {
-            "example": analysis_request
-        }
-    }
+    model_config = {"json_schema_extra": {"example": analysis_request}}
 
     @field_validator("text")
     @classmethod

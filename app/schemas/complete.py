@@ -47,11 +47,7 @@ class CompletionRequest(BaseModel):
         ),
     ]
 
-    model_config = {
-        "json_schema_extra": {
-            "examples": complete_request
-        }
-    }
+    model_config = {"json_schema_extra": {"examples": complete_request}}
 
     @field_validator("prompt")
     @classmethod
@@ -59,8 +55,6 @@ class CompletionRequest(BaseModel):
         if not v.strip():
             raise ValueError("Prompt cannot be empty or whitespace only")
         return v.strip()
-
-
 
 
 class CompletionResponse(BaseModel):

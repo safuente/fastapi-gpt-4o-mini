@@ -31,12 +31,7 @@ class SummaryRequest(BaseModel):
         default=SummaryStyle.CONCISE, description="Summary style"
     )
 
-    model_config = {
-        "json_schema_extra": {
-            "examples": summary_request
-        }
-    }
-
+    model_config = {"json_schema_extra": {"examples": summary_request}}
 
     @field_validator("text")
     @classmethod

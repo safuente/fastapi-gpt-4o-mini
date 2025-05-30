@@ -10,11 +10,7 @@ class TranslationRequest(BaseModel):
         ..., description="Target language code"
     )
 
-    model_config = {
-        "json_schema_extra": {
-            "examples": translate_request
-        }
-    }
+    model_config = {"json_schema_extra": {"examples": translate_request}}
 
     @field_validator("text")
     @classmethod
@@ -22,8 +18,6 @@ class TranslationRequest(BaseModel):
         if not v.strip():
             raise ValueError("Text cannot be empty or whitespace only")
         return v.strip()
-
-
 
 
 class TranslationResponse(BaseModel):

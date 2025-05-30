@@ -5,7 +5,7 @@ from schemas import CompletionRequest, CompletionResponse
 
 from dependencies import get_current_user
 from routers.rate_limiter import limiter
-from doc_examples import complete_200, common_401 , common_422, common_429
+from doc_examples import complete_200, common_401, common_422, common_429
 
 router = APIRouter(
     prefix="/complete", tags=["Complete"], dependencies=[Depends(get_current_user)]

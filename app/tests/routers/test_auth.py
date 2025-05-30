@@ -67,7 +67,6 @@ class TestAuthLogin:
         assert response.status_code == 422
         assert response.json()["error_code"] == "validation_error"
 
-
     @pytest.mark.asyncio
     async def test_rate_limit_exceeded(self):
         async with AsyncClient(app=app, base_url="http://test") as client:
@@ -77,7 +76,7 @@ class TestAuthLogin:
                     json={
                         "username": settings.fake_username,
                         "password": settings.fake_password,
-                    }
+                    },
                 )
 
             assert response.status_code == 429
