@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from schemas import TranslationRequest, TranslationResponse
 from services import TranslationService
 
@@ -13,11 +13,16 @@ router = APIRouter(
 translation_service = TranslationService()
 
 
-@router.post("", response_model=TranslationResponse, responses=translate_200 | common_401 | common_422 | common_429)
+@router.post(
+    "",
+    response_model=TranslationResponse,
+    responses=translate_200 | common_401 | common_422 | common_429,
+)
 @limiter.limit("1000/hour")
 async def translate(
-    request: TranslationRequest,
+    request: Request,
+    body: TranslationRequest,
 ):
     return await translation_service.translate_text(
-        text=request.text, target_language=request.target_language
+        text=body.text, target_language=body.target_language
     )

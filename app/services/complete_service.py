@@ -1,4 +1,3 @@
-import uuid
 import logging
 from schemas import CompletionResponse
 from openai.types.chat import ChatCompletionChunk
@@ -9,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 class CompletionService(BaseLlmService):
+    """Service for generating text completions using a chat-based LLM."""
 
     async def chat_completion(
         self,

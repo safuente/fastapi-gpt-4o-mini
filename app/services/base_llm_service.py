@@ -13,7 +13,10 @@ logger = logging.getLogger(__name__)
 
 
 class BaseLlmService:
+    """Base service for interacting with OpenAI's chat models asynchronously."""
+
     def __init__(self):
+        """Initialize the OpenAI client with configuration settings."""
         self.settings = get_settings()
         self.client = AsyncOpenAI(api_key=self.settings.openai_api_key)
         self.model = self.settings.openai_model
@@ -21,6 +24,7 @@ class BaseLlmService:
         self.retry_delay = self.settings.openai_retry_delay
 
     async def _retry_with_backoff(self, func, *args, **kwargs):
+        """Retry a coroutine with exponential backoff on transient errors."""
         for attempt in range(self.max_retries):
             try:
                 return await func(*args, **kwargs)
@@ -41,6 +45,7 @@ class BaseLlmService:
         top_p: Optional[float] = 1.0,
         stream: bool = False,
     ) -> Union[str, AsyncGenerator[ChatCompletionChunk, None]]:
+        """Send a chat completion request to the OpenAI API with optional streaming."""
 
         if messages is None:
             messages = [{"role": "user", "content": prompt}]

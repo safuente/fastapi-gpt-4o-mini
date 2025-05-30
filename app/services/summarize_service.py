@@ -12,6 +12,8 @@ class SummaryService(BaseLlmService):
     async def summarize_text(
         self, text: str, max_length: int = 150, style: str = "concise"
     ) -> SummaryResponse:
+        """Generate a summary of the input text in a specified style."""
+
         logger.info(
             f"Starting summarization with style='{style}' and max_length={max_length}"
         )

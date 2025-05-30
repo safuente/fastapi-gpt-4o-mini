@@ -10,10 +10,16 @@ logger = logging.getLogger(__name__)
 
 
 class AnalysisService(BaseLlmService):
+    """
+    Service for performing various types of text analysis using an LLM.
+    """
 
     async def analyze_text(
         self, text: str, analysis_type: AnalysisType
     ) -> AnalysisResponse:
+        """
+        Analyze the given text using the specified type of analysis.
+        """
         analysis_prompts = {
             AnalysisType.SENTIMENT: "Analyze the sentiment of this text (positive, negative, neutral) and provide a confidence score:",
             AnalysisType.KEY_TOPICS: "Extract the key topics and themes from this text:",
@@ -48,7 +54,6 @@ class AnalysisService(BaseLlmService):
         result = await self.chat_complete(
             messages=messages, max_tokens=400, temperature=0.3, top_p=1.0, stream=False
         )
-        print(result)
         logger.info(result)
 
         return AnalysisResponse(result=result.strip())

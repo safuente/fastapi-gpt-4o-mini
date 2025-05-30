@@ -6,9 +6,12 @@ logger = logging.getLogger(__name__)
 
 
 class TranslationService(BaseLlmService):
+    """Service for translating text to a target language using an LLM."""
+
     async def translate_text(
         self, text: str, target_language: str
     ) -> TranslationResponse:
+        """Translate input text into the specified target language."""
         logger.info(f"Translating to '{target_language}'")
 
         prompt = (

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from schemas.analyze import AnalysisRequest, AnalysisResponse
 from services import AnalysisService
 
@@ -15,5 +15,5 @@ analysis_service = AnalysisService()
 
 @router.post("", response_model=AnalysisResponse, responses=analyze_200 | common_401 | common_422 | common_429)
 @limiter.limit("1000/hour")
-async def analyze_text(request: AnalysisRequest):
-    return await analysis_service.analyze_text(request.text, request.type)
+async def analyze_text(request: Request, body: AnalysisRequest):
+    return await analysis_service.analyze_text(body.text, body.type)
