@@ -17,6 +17,19 @@ complete_service = CompletionService()
     "",
     response_model=CompletionResponse,
     response_model_exclude_unset=True,
+    summary="Generate text completion",
+    description="""
+Generate a continuation of the provided prompt using a language model.
+
+You can adjust the following parameters:
+- `max_tokens`: Maximum number of tokens to generate
+- `temperature`: Controls randomness (creativity vs determinism)
+- `top_p`: Nucleus sampling probability threshold
+
+You can also enable **streaming** by setting `stream=true`, which returns the response as a stream of text chunks.
+
+**Note**: Rate limited to **1000 requests per hour per IP**.
+    """,
     responses=complete_200 | common_401 | common_422 | common_429,
 )
 @limiter.limit("1000/hour")
