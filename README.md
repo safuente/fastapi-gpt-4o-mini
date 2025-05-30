@@ -111,6 +111,8 @@ This project is structured for scalability and ensuring best practices:
 * **Separation of routers** by functionalities
 * **Separation of services** by functionalities using a base service
 * **Use of schemas** for input/output data validations
+* **Asynchronous programming** to deliver superior performance 
+and scalability for concurrent requests, faster responses and less memory use
 * **Centralized config** using `pydantic`
 * **Dependency injection** for auth
 * **Unit testing** for routers and services
