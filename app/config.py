@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     app_version: str = "1.0.0"
     debug: bool = False
     environment: str = "production"
+    api_prefix: str = "/api"
+    api_version: str = "/v1"
 
     # Server
     host: str = "0.0.0.0"

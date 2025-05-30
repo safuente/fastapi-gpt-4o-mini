@@ -138,6 +138,15 @@ login_200 = {
     }
 }
 
-
+login_401 = {
+    401: {
+        "description": "Unauthorized - Invalid credentials",
+        "content": {
+            "application/json": {
+                "example": {"detail": "Invalid credentials", "error_code": "http_error"}
+            }
+        },
+    }
+}
 
 

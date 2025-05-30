@@ -36,10 +36,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+BASE_API_URL = f"{settings.api_prefix}{settings.api_version}"
 
-
-app.include_router(summary_router, prefix="/api")
-app.include_router(complete_router, prefix="/api")
-app.include_router(translation_router, prefix="/api")
-app.include_router(analysis_router, prefix="/api")
-app.include_router(auth_router, prefix="/api")
+app.include_router(summary_router, prefix=f"{BASE_API_URL}")
+app.include_router(complete_router, prefix=f"{BASE_API_URL}")
+app.include_router(translation_router, prefix=f"{BASE_API_URL}")
+app.include_router(analysis_router, prefix=f"{BASE_API_URL}")
+app.include_router(auth_router, prefix=f"{BASE_API_URL}")

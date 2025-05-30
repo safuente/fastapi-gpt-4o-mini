@@ -26,10 +26,13 @@ class SummaryService(BaseLlmService):
             "storytelling": "Summarize in a narrative storytelling style:",
         }
 
+        word_count = len(text.split())
+        max_words = max(word_count - 1, 5)
+
         prompt = (
             f"{style_prompts.get(style, style_prompts['concise'])}\n\n"
             f"Text: {text}\n\n"
-            f"Summary (max {max_length} words):"
+            f"Summary (max {max_words} words):"
         )
 
         logger.debug(f"Generated prompt for model:\n{prompt}")
