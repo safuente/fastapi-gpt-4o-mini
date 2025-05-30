@@ -75,6 +75,7 @@ summarize_200 = {
         "content": {
             "application/json": {
                 "example": {
+                    "id": "78f57c05-ad94-4a42-b946-2a638b4ca969",
                     "summary": "This product offers excellent performance with great value.",
                     "original_length": 15,
                     "summary_length": 10,
