@@ -3,6 +3,8 @@ from schemas.analyze import AnalysisType
 from fastapi import HTTPException
 import logging
 
+from exceptions import AppException
+
 logger = logging.getLogger(__name__)
 
 
@@ -21,7 +23,11 @@ class AnalysisService(BaseLlmService):
         prompt_template = analysis_prompts.get(analysis_type)
 
         if not prompt_template:
-            raise HTTPException(status_code=400, detail="Unsupported analysis type")
+            supported = ", ".join([t.value for t in AnalysisType])
+            raise AppException(
+                message=f"Unsupported analysis type: '{analysis_type}'. Supported types are: {supported}",
+                error_code="unsupported_analysis_type",
+            )
 
         full_prompt = (
             f"{prompt_template}\n\n"

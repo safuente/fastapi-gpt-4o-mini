@@ -7,6 +7,8 @@ from config import get_settings
 from collections.abc import AsyncGenerator
 from openai.types.chat import ChatCompletionChunk
 
+from exceptions import LLMServiceException
+
 logger = logging.getLogger(__name__)
 
 
@@ -27,7 +29,8 @@ class BaseLlmService:
                 if attempt < self.max_retries - 1:
                     await asyncio.sleep(self.retry_delay * (2**attempt))
                 else:
-                    raise
+                    logger.error(f"Max retries exceeded: {e}")
+                    raise LLMServiceException(detail=str(e))
 
     async def chat_complete(
         self,
